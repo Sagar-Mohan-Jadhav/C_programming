@@ -10,5 +10,15 @@ int main()
         printf("%s\n", value_months[count]);
         count = count + 1;
     }
+
+    printf("\n\n");
+    count = 0;
+
+    do
+    {
+        printf("%s\n", value_months[count]);
+        count = count + 1;
+    }
+    while(count<= 11);
     return 0;
 }
