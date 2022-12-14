@@ -11,7 +11,7 @@ int GCD(int x, int y)
     }
     for (int count = x; count >= 0; --count)
     {
-        if ((x % count == 0) &&(y % count == 0))
+        if ((x % count == 0) && (y % count == 0))
         {
             result = count;
             break;
@@ -22,11 +22,11 @@ int GCD(int x, int y)
 
 int main()
 {
-    int num1, num2, result1;
+    int num1, num2, result;
     printf("Enter two positive integers separated by white space.\n");
     scanf("%d %d", &num1, &num2);
-    result1 = GCD(num1, num2);
+    result = GCD(num1, num2);
 
-    printf("The GCD of number %d and %d is %d", num1, num2, result1);
+    printf("The GCD of number %d and %d is %d", num1, num2, result);
     return 0;
 }
