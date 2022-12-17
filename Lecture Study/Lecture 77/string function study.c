@@ -23,7 +23,7 @@ int main()
     same_str = strcmp(str1, str2);
     printf("%i\n", same_str);
 
-    //string concatination.
+    // string concatination.
     strcpy(combination_of_strings, strcat(str1, str2));
     printf("%s\n", combination_of_strings);
     return 0;
