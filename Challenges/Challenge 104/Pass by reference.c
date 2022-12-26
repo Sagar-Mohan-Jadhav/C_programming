@@ -12,6 +12,7 @@ int *square2(int *number)
     *number = (*number)*(*number);
     return number;
 }
+
 int main()
 {
     int num = 6;
