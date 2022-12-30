@@ -11,20 +11,20 @@ int main()
     }
     else
     {
-        int ch, len, count = 0, eof_count = 0;
+        int ch, len, count = 0, newline_count = 1;
         fseek(pfile, 0, SEEK_END);
         len = ftell(pfile);
         printf("The length of the text file is %d.\n",len);
         fseek(pfile, 0, SEEK_SET);
         while(count <= len)
         {
-            if ((ch = fgetc(pfile)) == 13)
+            if ((ch = fgetc(pfile)) == 13) // 13 is ASCII for new line.
             {
-                eof_count++;
+                newline_count++;
             }
             count++;
         }
-        printf("There are %d lines in the text file.\n", eof_count);
+        printf("There are %d lines in the text file.\n", newline_count);
     }
     fclose(pfile);
     pfile = NULL;
