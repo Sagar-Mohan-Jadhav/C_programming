@@ -1,154 +1,106 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-void display(int positions[3][3])
+void disp_board(int *play_board0, int *play_board1, int *play_board2)
 {
-    for (int x = 0; x <= 2; ++x)
-    {
-        printf("\n%d %d %d\n", positions[x][0], positions[x][1], positions[x][2]);
-    }
+    printf("%d %d %d\n%d %d %d\n%d %d %d\n\n\n\n", *(play_board0), *(play_board0 + 1), *(play_board0 + 2), *(play_board1),
+            *(play_board1 + 1), *(play_board1 + 2), *(play_board2), *(play_board2 + 1), *(play_board2 + 2));
+    return;
 }
 
-int danger(int positions[3][3])
+void user_turn(int *play_board0, int *play_board1, int *play_board2)
 {
-    int danger_pos[3] = {-1, -1, -1};
-    for (int count1 = 0; count1 <= 2; ++count1)
+    int user_play_row = 0, user_play_column = 0;
+    bool invalid_move = true;
+    printf("Enter the move you want to play separated by white space (ex. 1 2).\n");
+    scanf("%d %d", &user_play_row, &user_play_column);
+    printf("The player entered %d and %d\n", user_play_row, user_play_column);
+    while (user_play_column >= 3 || user_play_row >= 3 || user_play_column <= -1 || user_play_row <= -1)
     {
-        int danger_count = 0;
-        for (int count2 = 0; count2 <= 2; ++count2)
+        printf("The move is invalid\nPlease play again.\n");
+        scanf("%d %d", &user_play_row, &user_play_column);
+    }
+    while (invalid_move)
+    {
+        if (user_play_row == 0)
         {
-            if (positions[count1][count2] == 1)
+            if (*(play_board0 + user_play_column) == 0)
             {
-                danger_count = danger_count + 1;
-            }
-            else if (positions[count1][count2] == 2)
-            {
-                danger_count = 0;
+                invalid_move = false;
                 break;
             }
         }
-        if (danger_count == 2)
+        else if(user_play_row == 1)
         {
-            danger_pos[0] = count1;
-            break;
-        }
-    }
-
-
-    for (int count3 = 0; count3 <= 2; ++count3)
-    {
-        int danger_count = 0;
-        for (int count4 = 0; count4 <= 2; ++count4)
-        {
-            if (positions[count4][count3] == 1)
+            if (*(play_board1 + user_play_column) == 0)
             {
-                danger_count = danger_count + 1;
-            }
-            else if (positions[count4][count3] == 2)
-            {
-                danger_count = 0;
+                invalid_move = false;
                 break;
             }
         }
-        if (danger_count == 2)
+        else
         {
-            danger_pos[1] = count4;
-            break;
+            if (*(play_board2 + user_play_column) == 0)
+            {
+                invalid_move = false;
+                break;
+            }
         }
+        printf("The move is invalid\nPlease play again.\n");
+        scanf("%d %d", &user_play_row, &user_play_column);
     }
-
-
-    if ((positions[0][0] == 1 && positions[1][1] == 1 ) || (positions[1][1] == 1 && positions[2][2] == 1) || (positions[0][0] == 1 && positions[2][2] == 1))
+    if (user_play_row == 0)
     {
-        if (positions[0][0] != 2 && positions[1][1] != 2 && positions[2][2] != 2)
-        {
-            danger_pos[2] = 1;
-        }
+        *(play_board0 + user_play_column) = 1;
     }
-    if ((positions[2][0] == 1 && positions[1][1] == 1 ) || (positions[1][1] == 1 && positions[0][2] == 1) || (positions[2][0] == 1 && positions[0][2] == 1))
+    else if(user_play_row == 1)
     {
-        if (positions[2][0] != 2 && positions[1][1] != 2 && positions[0][2] != 2)
-        {
-            danger_pos[2] = 2;
-        }
+        *(play_board1 + user_play_column) = 1;
     }
-
-    return danger_pos;
+    else
+    {
+        *(play_board2 + user_play_column) = 1;
+    }
+    return;
 }
 
-int computer_play(int positions[3][3])
+void computer_turn(int *play_board0, int *play_board1, int *play_board2)
 {
-    int danger_pos;
-    danger_pos = danger(positions);
-    for (int count1 = 0; count1 <=1; ++count1)
-    {
-        if (danger_pos[count1] != -1)
-        {
-            if (count1 == 0)
-            {
-                for (int count2 = 0; count2 <= 2; ++count2)
-                {
-                    if (positions[danger_pos[count1]][count2] == 0)
-                    {
-                        positions[danger_pos[count1]][count2] = 2;
-                    }
-                }
-            }
-            else
-            {
-                for (int count2 = 0; count2 <= 2; ++count2)
-                {
-                    if (positions[danger_pos[count2]][count1] == 0)
-                    {
-                        positions[danger_pos[count2]][count1] = 2;
-                    }
-                }
-            }
-        }
-    }
-    return positions;
+
+    return;
 }
 
 int main()
 {
-    int position[3][3] = {{0, 0, 0},{0, 0, 0}, {0, 0, 0}}, x, y;
-    char char_ans;
-    bool play_first = true, valid_move;
-    printf("Do you want to play first, y or n?\n");
-    scanf("%c", &char_ans);
-
-    if (char_ans == 'y')
+    int play_board[3][3] = {{0, 0, 0},{0, 0, 0},{0, 0, 0}};
+    char user_play_first[10];
+    disp_board(play_board[0], play_board[1], play_board[2]);
+    printf("Do you want to play first? y or n.\n");
+    scanf("%s", user_play_first);
+    if (strcmp(user_play_first, "y")== 0)
     {
-        printf("Your turn.\n");
+        for (int count = 0; count <= 3; count++)
+        {
+            user_turn(play_board[0], play_board[1], play_board[2]);
+            disp_board(play_board[0], play_board[1], play_board[2]);
+            computer_turn(play_board[0], play_board[1], play_board[2]);
+            disp_board(play_board[0], play_board[1], play_board[2]);
+        }
+        user_turn(play_board[0], play_board[1], play_board[2]);
+        disp_board(play_board[0], play_board[1], play_board[2]);
     }
     else
     {
-        printf("Computer has played, your turn.\n");
-        play_first = false;
-    }
-    for (int count = 0; count <= 8; ++count)
-    {
-        valid_move = false;
-        if (play_first == true)
+        for (int count = 0; count <= 3; count++)
         {
-            while (!valid_move)
-            {
-                printf("Enter the position you want to play separated by white space.\n");
-                scanf("%d %d", &x, &y);
-                if (x < 4 && x > -1 && y < 4 && y > -1 && ((position[x-1][y-1] != 1) && (position[x-1][y-1] != 2)))
-                {
-                    position[x-1][y-1] = 1;
-                    valid_move = true;
-                }
-                else
-                {
-                    printf("Enter a valid position.\n");
-                }
-                display(position);
-            }
-            position = computer_play(position);
-            display(position);
+            computer_turn(play_board[0], play_board[1], play_board[2]);
+            disp_board(play_board[0], play_board[1], play_board[2]);
+            user_turn(play_board[0], play_board[1], play_board[2]);
+            disp_board(play_board[0], play_board[1], play_board[2]);
         }
+        computer_turn(play_board[0], play_board[1], play_board[2]);
+        disp_board(play_board[0], play_board[1], play_board[2]);
     }
     return 0;
 }
