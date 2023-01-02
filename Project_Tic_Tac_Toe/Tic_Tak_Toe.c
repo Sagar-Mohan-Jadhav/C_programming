@@ -65,6 +65,225 @@ void user_turn(int *play_board0, int *play_board1, int *play_board2)
     return;
 }
 
+void win_finder(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column, bool *is_win)
+{
+    if ((*(play_board0) + *(play_board0 + 1) + *(play_board0 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board1) + *(play_board1 + 1) + *(play_board1 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board2) + *(play_board2 + 1) + *(play_board2 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board0) + *(play_board1) + *(play_board2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board0 + 1) + *(play_board1 + 1) + *(play_board2 + 1)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board0 + 2) + *(play_board1 + 2) + *(play_board2 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board2) + *(play_board1 + 1) + *(play_board0 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    else if ((*(play_board0) + *(play_board1 + 1) + *(play_board2 + 2)) == 6)
+    {
+        *is_win = true;
+    }
+    return;
+}
+
+void definite_win(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column)
+{
+    int win_count = 0;
+    if (*(play_board0)== 0)
+    {
+        if ((*(play_board0 + 1) + *(play_board0 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 0) + *(play_board2 + 0)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board2 + 2))== 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board0 + 1)== 0)
+    {
+        if ((*(play_board0) + *(play_board0 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1) + *(play_board2 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board0 + 2)== 0)
+    {
+        if ((*(play_board0) + *(play_board0 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 2) + *(play_board2 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board2 + 0))== 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 2;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1)== 0)
+    {
+        if ((*(play_board1 + 1) + *(play_board1 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board0) + *(play_board2 + 0)) == 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1 + 1)== 0)
+    {
+        if ((*(play_board0) + *(play_board2 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1) + *(play_board1 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board0 + 1)+ *(play_board2 + 1))== 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board2)+ *(play_board0 + 2))== 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1 + 2)== 0)
+    {
+        if ((*(play_board1) + *(play_board1 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board0 + 2) + *(play_board2 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 2;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2)== 0)
+    {
+        if ((*(play_board0) + *(play_board1)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board2 + 1) + *(play_board2 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board0 + 2))== 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2 + 1)== 0)
+    {
+        if ((*(play_board2) + *(play_board2 + 2)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1) + *(play_board0 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2 + 2)== 0)
+    {
+        if ((*(play_board0) + *(play_board1 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board2) + *(play_board2 + 1)) == 4)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 2)+ *(play_board0 + 2))== 4)
+        {
+            win_count++;
+        }
+        if (win_count>= 1)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 2;
+        }
+    }
+    return;
+}
+
 void definite_risk(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column)
 {
     bool risk = false;
@@ -507,6 +726,238 @@ void potential_risk(int *play_board0, int *play_board1, int *play_board2, int *b
     return;
 }
 
+void potential_win(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column)
+{
+    int win_count = 0;
+    if (*(play_board0)== 0)
+    {
+        if ((*(play_board0 + 1) + *(play_board0 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 0) + *(play_board2 + 0)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board2 + 2))== 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board0 + 1)== 0)
+    {
+        if ((*(play_board0) + *(play_board0 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1) + *(play_board2 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board0 + 2)== 0)
+    {
+        if ((*(play_board0) + *(play_board0 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 2) + *(play_board2 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board2 + 0))== 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 0;
+            *(best_move_column) = 2;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1)== 0)
+    {
+        if ((*(play_board1 + 1) + *(play_board1 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board0) + *(play_board2 + 0)) == 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1 + 1)== 0)
+    {
+        if ((*(play_board0) + *(play_board2 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1) + *(play_board1 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board0 + 1)+ *(play_board2 + 1))== 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board2)+ *(play_board0 + 2))== 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board1 + 2)== 0)
+    {
+        if ((*(play_board1) + *(play_board1 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board0 + 2) + *(play_board2 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 1;
+            *(best_move_column) = 2;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2)== 0)
+    {
+        if ((*(play_board0) + *(play_board1)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board2 + 1) + *(play_board2 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1)+ *(play_board0 + 2))== 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 0;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2 + 1)== 0)
+    {
+        if ((*(play_board2) + *(play_board2 + 2)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 1) + *(play_board0 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 1;
+        }
+    }
+    win_count = 0;
+    if (*(play_board2 + 2)== 0)
+    {
+        if ((*(play_board0) + *(play_board1 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board2) + *(play_board2 + 1)) == 2)
+        {
+            win_count++;
+        }
+        if ((*(play_board1 + 2)+ *(play_board0 + 2))== 2)
+        {
+            win_count++;
+        }
+        if (win_count>= 2)
+        {
+            *(best_move_row) = 2;
+            *(best_move_column) = 2;
+        }
+    }
+    return;
+}
+
+void no_strat_no_risk(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column)
+{
+    if (*(play_board1 + 1) == 0)
+    {
+        *(best_move_row) = 1;
+        *(best_move_column) = 1;
+    }
+    else if (*(play_board2 + 2) == 0)
+    {
+        *(best_move_row) = 2;
+        *(best_move_column) = 2;
+    }
+    else if (*(play_board0 + 2) == 0)
+    {
+        *(best_move_row) = 0;
+        *(best_move_column) = 2;
+    }
+    else if (*(play_board2 + 0) == 0)
+    {
+        *(best_move_row) = 2;
+        *(best_move_column) = 0;
+    }
+    else if (*(play_board0 + 0) == 0)
+    {
+        *(best_move_row) = 2;
+        *(best_move_column) = 2;
+    }
+    else if (*(play_board2 + 1) == 0)
+    {
+        *(best_move_row) = 2;
+        *(best_move_column) = 1;
+    }
+    else if (*(play_board1) == 0)
+    {
+        *(best_move_row) = 1;
+        *(best_move_column) = 0;
+    }
+    else if (*(play_board1 + 2) == 0)
+    {
+        *(best_move_row) = 1;
+        *(best_move_column) = 2;
+    }
+    else if (*(play_board0 + 1) == 0)
+    {
+        *(best_move_row) = 0;
+        *(best_move_column) = 1;
+    }
+    return;
+}
+
 void computer_turn(int *play_board0, int *play_board1, int *play_board2, int *best_move_row, int *best_move_column)
 {
     printf("Computers play.\n");
@@ -529,6 +980,8 @@ int main()
 {
     int play_board[3][3] = {{0, 0, 0},{0, 0, 0},{0, 0, 0}}, best_move_row = 0, best_move_column = 0;
     char user_play_first[10];
+    bool win_or_not = false;
+    printf("The board layout is like this.\n|(0 0) (0 1) (0 2)|\n|(1 0) (1 1) (1 2)|\n|(2 0) (2 1) (2 2)|\n User turn is marked as 1 and Computer turn as 2.\n");
     disp_board(play_board[0], play_board[1], play_board[2]);
     printf("Do you want to play first? y or n.\n");
     scanf("%s", user_play_first);
@@ -538,29 +991,76 @@ int main()
         {
             user_turn(play_board[0], play_board[1], play_board[2]);
             disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+                win_or_not = false;
+                break;
+            }
+            no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            potential_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             potential_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             definite_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            definite_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             computer_turn(play_board[0], play_board[1], play_board[2],&best_move_row, &best_move_column);
             disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+                win_or_not = false;
+                break;
+            }
         }
         user_turn(play_board[0], play_board[1], play_board[2]);
         disp_board(play_board[0], play_board[1], play_board[2]);
+        win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+        if (win_or_not)
+        {
+            printf("\n\nComputer wins.\n\n");
+        }
     }
     else
     {
         for (int count = 0; count <= 3; count++)
         {
+            no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            potential_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             potential_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             definite_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            definite_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
             computer_turn(play_board[0], play_board[1], play_board[2],&best_move_row, &best_move_column);
             disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+                win_or_not = false;
+                break;
+            }
             user_turn(play_board[0], play_board[1], play_board[2]);
             disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+                win_or_not = false;
+                break;
+            }
         }
+        no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+        potential_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
         potential_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
         definite_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+        definite_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
         computer_turn(play_board[0], play_board[1], play_board[2],&best_move_row, &best_move_column);
         disp_board(play_board[0], play_board[1], play_board[2]);
+        win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+        if (win_or_not)
+        {
+            printf("\n\nComputer wins.\n\n");
+        }
     }
     return 0;
 }
