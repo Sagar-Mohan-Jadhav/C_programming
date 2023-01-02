@@ -932,8 +932,8 @@ void no_strat_no_risk(int *play_board0, int *play_board1, int *play_board2, int 
     }
     else if (*(play_board0 + 0) == 0)
     {
-        *(best_move_row) = 2;
-        *(best_move_column) = 2;
+        *(best_move_row) = 0;
+        *(best_move_column) = 0;
     }
     else if (*(play_board2 + 1) == 0)
     {
@@ -995,7 +995,6 @@ int main()
             if (win_or_not)
             {
                 printf("\n\nComputer wins.\n\n");
-                win_or_not = false;
                 break;
             }
             no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
@@ -1009,16 +1008,22 @@ int main()
             if (win_or_not)
             {
                 printf("\n\nComputer wins.\n\n");
-                win_or_not = false;
                 break;
             }
         }
-        user_turn(play_board[0], play_board[1], play_board[2]);
-        disp_board(play_board[0], play_board[1], play_board[2]);
-        win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
-        if (win_or_not)
+        if (!win_or_not)
         {
-            printf("\n\nComputer wins.\n\n");
+            user_turn(play_board[0], play_board[1], play_board[2]);
+            disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+            }
+            else
+            {
+                printf("Game draw!\n");
+            }
         }
     }
     else
@@ -1036,7 +1041,6 @@ int main()
             if (win_or_not)
             {
                 printf("\n\nComputer wins.\n\n");
-                win_or_not = false;
                 break;
             }
             user_turn(play_board[0], play_board[1], play_board[2]);
@@ -1045,21 +1049,27 @@ int main()
             if (win_or_not)
             {
                 printf("\n\nComputer wins.\n\n");
-                win_or_not = false;
                 break;
             }
         }
-        no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
-        potential_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
-        potential_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
-        definite_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
-        definite_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
-        computer_turn(play_board[0], play_board[1], play_board[2],&best_move_row, &best_move_column);
-        disp_board(play_board[0], play_board[1], play_board[2]);
-        win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
-        if (win_or_not)
+        if (!win_or_not)
         {
-            printf("\n\nComputer wins.\n\n");
+            no_strat_no_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            potential_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            potential_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            definite_risk(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            definite_win(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column);
+            computer_turn(play_board[0], play_board[1], play_board[2],&best_move_row, &best_move_column);
+            disp_board(play_board[0], play_board[1], play_board[2]);
+            win_finder(play_board[0], play_board[1], play_board[2], &best_move_row, &best_move_column, &win_or_not);
+            if (win_or_not)
+            {
+                printf("\n\nComputer wins.\n\n");
+            }
+            else
+            {
+                printf("Game draw!\n");
+            }
         }
     }
     return 0;
