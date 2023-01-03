@@ -34,6 +34,18 @@
 		<Unit filename="Tic_Tak_Toe.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="riskLib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="riskLib.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="winLib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="winLib.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
